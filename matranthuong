@@ -1,0 +1,164 @@
+#include <stdio.h>
+
+void nhapMaTran(int d, int c, int matran[][c]) {
+    printf("Nhập ma trận %d dòng %d cột:\n", d, c);
+    for (int i = 0; i < d; i++) {
+        for (int j = 0; j < c; j++) {
+            scanf("%d", &matran[i][j]);
+        }
+    }
+}
+
+void xuatMaTran(int d, int c, int matran[][c]) {
+    printf("Ma trận vừa nhập:\n");
+    for (int i = 0; i < d; i++) {
+        for (int j = 0; j < c; j++) {
+            printf("%d ", matran[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void xuatPhanTuAm(int d, int c, int matran[][c]) {
+    printf("Các phần tử âm trong ma trận:\n");
+    for (int i = 0; i < d; i++) {
+        for (int j = 0; j < c; j++) {
+            if (matran[i][j] < 0) {
+                printf("%d ", matran[i][j]);
+            }
+        }
+    }
+    printf("\n");
+}
+
+int demPhanTuAm(int d, int c, int matran[][c]) {
+    int dem = 0;
+    for (int i = 0; i < d; i++) {
+        for (int j = 0; j < c; j++) {
+            if (matran[i][j] < 0) {
+                dem++;
+            }
+        }
+    }
+    return dem;
+}
+
+int tinhTongMaTran(int d, int c, int matran[][c]) {
+    int sum = 0;
+    for (int i = 0; i < d; i++) {
+        for (int j = 0; j < c; j++) {
+            sum += matran[i][j];
+        }
+    }
+    return sum;
+}
+
+int tinhTongPhanTuAm(int d, int c, int matran[][c]) {
+    int sum = 0;
+    for (int i = 0; i < d; i++) {
+        for (int j = 0; j < c; j++) {
+            if (matran[i][j] < 0) {
+                sum += matran[i][j];
+            }
+        }
+    }
+    return sum;
+}
+
+float tbcPhanTuAm(int d, int c, int matran[][c]) {
+    int demAm = demPhanTuAm(d, c, matran);
+    if (demAm == 0) {
+        return 0;
+    }
+
+    int sumAm = tinhTongPhanTuAm(d, c, matran);
+    return (float)sumAm / demAm;
+}
+
+int timMaxMaTran(int d, int c, int matran[][c]) {
+    int max = matran[0][0];
+    for (int i = 0; i < d; i++) {
+        for (int j = 0; j < c; j++) {
+            if (matran[i][j] > max) {
+                max = matran[i][j];
+            }
+        }
+    }
+    return max;
+}
+
+void xuatDongK(int c, int matran[], int k) {
+    printf("Các phần tử trên dòng %d:\n", k);
+    for (int j = 0; j < c; j++) {
+        printf("%d ", matran[j]);
+    }
+    printf("\n");
+}
+
+int tinhTongDongK(int c, int matran[], int k) {
+    int sum = 0;
+    for (int j = 0; j < c; j++) {
+        sum += matran[j];
+    }
+    return sum;
+}
+
+void xuatTongDong(int d, int c, int matran[][c]) {
+    printf("Tổng các phần tử trên mỗi dòng:\n");
+    for (int i = 0; i < d; i++) {
+        int tongDong = tinhTongDongK(c, matran[i], i);
+        printf("Dòng %d: %d\n", i, tongDong);
+    }
+}
+
+void xuatDongMax(int d, int c, int matran[][c]) {
+    int maxDong = tinhTongDongK(c, matran[0], 0);
+    int indexMax = 0;
+
+    for (int i = 1; i < d; i++) {
+        int tongDong = tinhTongDongK(c, matran[i], i);
+        if (tongDong > maxDong) {
+            maxDong = tongDong;
+            indexMax = i;
+        }
+    }
+
+    printf("Dòng có tổng lớn nhất: Dòng %d\n", indexMax);
+}
+
+int main() {
+    int d, c;
+    printf("Nhập số dòng: ");
+    scanf("%d", &d);
+    printf("Nhập số cột: ");
+    scanf("%d", &c);
+
+    int matran[d][c];
+
+    nhapMaTran(d, c, matran);
+    xuatMaTran(d, c, matran);
+
+    xuatPhanTuAm(d, c, matran);
+
+    int demAm = demPhanTuAm(d, c, matran);
+    printf("Số lượng phần tử âm trong ma trận: %d\n", demAm);
+
+    int tongMaTran = tinhTongMaTran(d, c, matran);
+    printf("Tổng các phần tử của ma trận: %d\n", tongMaTran);
+
+    int tongAm = tinhTongPhanTuAm(d, c, matran);
+    printf("Tổng các phần tử âm của ma trận: %d\n", tongAm);
+
+    float tbcAm = tbcPhanTuAm(d, c, matran);
+    printf("Trung bình cộng các phần tử âm trong ma trận: %.2f\n", tbcAm);
+
+    int maxMaTran = timMaxMaTran(d, c, matran);
+    printf("Giá trị lớn nhất trong ma trận: %d\n", maxMaTran);
+
+    int k;
+    printf("Nhập dòng k (k bắt đầu từ 0): ");
+    scanf("%d", &k);
+    xuatDongK(c, matran[k], k);
+
+    int tongDongK = tinhTongDongK(c, matran[k], k);
+    printf("Tổng các phần tử trên
