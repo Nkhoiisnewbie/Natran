@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+void nhapMaTran(int n, int matran[][n]) {
+    printf("Nhập ma trận vuông cấp %d:\n", n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &matran[i][j]);
+        }
+    }
+}
+
+void xuatMaTran(int n, int matran[][n]) {
+    printf("Ma trận vừa nhập:\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%d ", matran[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void lietKeDuongCheo(int n, int matran[][n]) {
+    printf("Các phần tử trên đường chéo chính:\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", matran[i][i]);
+    }
+
+    printf("\nCác phần tử trên đường chéo phụ:\n");
+    for (int i = 0; i < n; i+
