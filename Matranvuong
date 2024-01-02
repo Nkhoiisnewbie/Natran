@@ -26,4 +26,51 @@ void lietKeDuongCheo(int n, int matran[][n]) {
     }
 
     printf("\nCác phần tử trên đường chéo phụ:\n");
-    for (int i = 0; i < n; i+
+    for (int i = 0; i < n; i++) {
+        printf("%d ", matran[i][n - 1 - i]);
+    }
+    printf("\n");
+}
+
+int tongDuongCheo(int n, int matran[][n]) {
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += matran[i][i];
+        sum += matran[i][n - 1 - i];
+    }
+    return sum;
+}
+
+int tongDuongBien(int n, int matran[][n]) {
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += matran[0][i]; // Phần tử trên hàng đầu
+        sum += matran[n - 1][i]; // Phần tử trên hàng cuối
+        if (i > 0 && i < n - 1) {
+            sum += matran[i][0]; // Phần tử trên cột đầu tiên
+            sum += matran[i][n - 1]; // Phần tử trên cột cuối cùng
+        }
+    }
+    return sum;
+}
+
+int main() {
+    int n;
+    printf("Nhap cap cua ma tran vuong: ");
+    scanf("%d", &n);
+
+    int matran[n][n];
+
+    nhapMaTran(n, matran);
+    xuatMaTran(n, matran);
+
+    lietKeDuongCheo(n, matran);
+
+    int sumDuongCheo = tongDuongCheo(n, matran);
+    printf("Tong cac phan tu tren duong cheo chinh/cheo phu: %d\n", sumDuongCheo);
+
+    int sumDuongBien = tongDuongBien(n, matran);
+    printf("Tong cac phan tu tren duong bien: %d\n", sumDuongBien);
+
+    return 0;
+}
